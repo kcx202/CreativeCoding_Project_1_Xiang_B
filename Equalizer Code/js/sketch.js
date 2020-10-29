@@ -19,7 +19,7 @@ let baseY = 0;
 
 
 function setup() {
-  frameRate(20)
+  frameRate(60)
   createCanvas(windowWidth, windowHeight);
   for (let j = 0; j < numBar; j++) {
     //barlength[i] = 100;
@@ -41,14 +41,13 @@ function draw() {
       baseX=baseX+0.2;
       bars[i].barlength = 0;
     }
-    if (floor(baseX)===width-210 && floor(baseY) < (height * 6/7-30)){ //moves the base bar downwards in intro
+    if (floor(baseX)== floor(width-210) && round(baseY) < (height * 6/7-30)){ //moves the base bar downwards in intro
       fill(r,g,b)
       rect(100,height * 1/7 + baseY - 30, width-210,10)
       baseY=baseY+0.2;
-      print(baseY)
       bars[i].barlength = 0;
     }
-    if (frameCount>=425&&frameCount<=825){ //ramping up of bars
+    if (round(baseY) == round(height * 6/7-30)&&frameCount<=825){ //ramping up of bars
     dampener = dampener + 0.0001;
     bars[i].barlength = (mid + sinAmp*sin(i/3-sinMove)+ sinAmp*cos(i/6)+ wub + noise)*dampener;
     }
@@ -67,7 +66,7 @@ function draw() {
       bars[x].colorBar();
     }
   }
-  if(frameCount>=388&&frameCount<=1650){ // draws the bottom bar
+  if(round(baseY) == round(height * 6/7-30)&& dampener > -0.5){ // draws the bottom bar
   fill(r,g,b)
   rect(100,height * 6/7 + 20, width-210,10)
   }
